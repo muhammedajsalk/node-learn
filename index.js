@@ -1,15 +1,12 @@
-const fs=require("fs")
+const fs= require("fs")
 
-const fileContent=fs.readFileSync("log.txt","utf-8")
+fs.writeFileSync("greet.txt","hello world")
 
-const fileContentss=fs.readFile("log.txt","utf-8",(err,data)=>{
-    if(err){
+
+fs.writeFile("log.txt","hello bous djs",(error)=>{
+    if(error){
         console.log("error found")
     }else{
-        console.log(data+"async");        
+        console.log("succefullly writed")
     }
 })
-
-console.log(fileContent+"sync");
-
-
