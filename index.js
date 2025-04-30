@@ -1,21 +1,16 @@
-const event=require("events")
+const fs = require('fs');
 
-const eventEmitter=new event.EventEmitter()
+// Create a readable stream with encoding
+const readableStream = fs.createReadStream('greet.txt', { encoding: 'utf8' });
 
-eventEmitter.on("order_placed",(order)=>{
-    console.log(`Email sent to ${order.email} for order ${order.id}`);
-})
-
-eventEmitter.on('order_placed', (order) => {
-    console.log(`Inventory updated for product: ${order.product}`);
+readableStream.on('data', (chunk) => {
+    console.log('Received a chunk of data:', chunk);
 });
 
+readableStream.on('end', () => {
+    console.log('Finished reading the file.');
+});
 
-const data={
-    email:"ajsalmuhammed45@gmail.com",
-    id:'231452',
-    product:"car"
-}
-
-
-eventEmitter.emit("order_placed",data)
+readableStream.on('error', (err) => {
+    console.error('Error reading the file:', err.message);
+});
